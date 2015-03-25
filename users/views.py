@@ -4,10 +4,15 @@ from django.core.urlresolvers import reverse
 
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
+from django.contrib.auth import logout as djlogout
 
 # Create your views here
 def login(request):
 	return render(request, 'login.html')
+
+def logout(request):
+    djlogout(request)
+    return render(request, 'logout.html')
 
 def login_validate(request):
     username = request.POST['username']
