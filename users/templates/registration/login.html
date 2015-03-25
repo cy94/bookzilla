@@ -32,12 +32,12 @@
 <form method="post" action="{% url 'users:login_validate' %}">
 {% csrf_token %}
   <div class="form-group">
-    <input type="text" class="form-control" name="username" placeholder="Username">
+    <input type="text" class="form-control" name="username" id="username" placeholder="Username">
   </div>
   <div class="form-group">
-    <input type="password" class="form-control" name="password" placeholder="Password">
+    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
   </div>
-  <input type="submit" value="Login" />
+  <input type="submit" value="Login" class="btn btn-info" />
   <input type="hidden" name="next" value="{% url 'users:home' }" />
 </form>
 

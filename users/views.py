@@ -23,3 +23,12 @@ def login_validate(request):
 
 def home(request):
 	return render(request, 'home.html')
+
+def register(request):
+    return render(request, 'register.html')
+
+def register_validate(request):
+    # if correct
+    # return HttpResponseRedirect(reverse('users:home'))
+    # else
+    return HttpResponseRedirect(reverse('users:register'))

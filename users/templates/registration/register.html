@@ -1,0 +1,36 @@
+ {% extends "base.html" %}
+
+
+
+{% block content %}
+
+{# load static files #}
+{% load staticfiles %}
+
+<script src="{% static 'js/register.js' %}"></script>
+<link href="{% static 'css/register.css' %}" rel="stylesheet">
+{#  #}
+
+{# content #}
+<div class="col-md-2"></div>
+
+<div class="col-md-8">
+	<form method="post" action="{% url 'users:register_validate' %}" id="register-form">
+	{% csrf_token %}
+	<div class="form-group">
+		<input type="text"  name="username"  placeholder="Username" class="form-control">
+		<input type="email" name="email" 	 placeholder="Email" class="form-control">	
+		<input type="text"  name="firstName" placeholder="First Name" class="form-control">
+		<input type="text"  name="lastName"  placeholder="Last Name" class="form-control">
+		<input type="date"  name="dob" class="form-control">
+		<input type="password" name="password" placeholder="Password" class="form-control">
+		<input type="password" name="confirmpassword" placeholder="Confirm Password" class="form-control">
+		<input type="submit"    value="Register" class="btn btn-info">	
+	</div>
+	</form>
+</div>
+
+<div class="col-md-2"></div>
+
+{# end content #}
+{% endblock content %}

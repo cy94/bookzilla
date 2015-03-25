@@ -11,7 +11,7 @@
     <meta name="author" content="">
 
     <title>Bookzilla</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -26,7 +26,6 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -48,19 +47,17 @@
     </nav>
 
     <div class="container">
-
       <div class="starter-template">
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
       </div>
-
     </div><!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
   </body>
 </html>
