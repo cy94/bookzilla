@@ -1,17 +1,11 @@
 // register.js
 
 $(document).ready(function(){
-	$('#password, #confirmpassword').focusout(function(){
-		if($(this).find('input').val().length == 0){
-			$(this).removeClass('has-success');		
-			$(this).addClass('has-error');	
-		}
-		else{
-			$(this).removeClass('has-error');	
-			$(this).addClass('has-success');		
-		}
 
+	$('#password, #confirmpassword').focusout(function(){
+		// both passwords must be the same
 		if($('#password').find('input').val() != $('#confirmpassword').find('input').val()){
+			$('#password, #confirmpassword').removeClass('has-success');
 			$('#password, #confirmpassword').addClass('has-error');
 		}
 		else{
@@ -24,30 +18,31 @@ $(document).ready(function(){
 		event.preventDefault();
 		console.log('Register form submitted.');
 
-
-		var username = $('#username').val();
-	    if (username == ''){
-	       alert('Please enter your username !');
-	       return false;
-	    }
+		// check - 
+		// all fields non-empty
+		// passwords equal
+		// raise errors
 
 	    var $form = $(this);
-		$.ajax({
-			type: "POST",
-			url: {% url 'users:register_validate' %},
-			data: $form.serialize(),
-			dataType: "json",
-			success: function(response) {
-				if (!response.success) {
-	                alert(response.error);
-	            }else {
-		            alert('This username is available!');
-	            }
-			},
-			error: function(rs, e) {
-				alert(rs.responseText);
-				return false;
+
+	    // post to register_validate view - check if username and email taken
+		$.post($(location).attr("href") + "register_validate", $form.serializeArray(), 
+															   function(msg){
+			console.log(msg);
+
+			if(msg == "name_taken"){
+				console.log("name is taken");
 			}
-		}); 
+			else if(msg == "email_taken"){
+				console.log("email is taken");
+			}
+			else if(msg == "no_error"){
+				console.log("all info ok, redirecting");
+				// redirect to home
+				window.location.href = '/users/home';
+			}
+
+			return false;
+		});
 	});
 })

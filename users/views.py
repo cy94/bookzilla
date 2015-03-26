@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
 from django.http import JsonResponse
+
 # Create your views here
 def login(request):
 	return render(request, 'login.html')
@@ -34,19 +35,44 @@ def register(request):
     return render(request, 'register.html')
 
 def register_validate(request):
-    # if correct
-    # return HttpResponseRedirect(reverse('users:home'))
-    # else
-    error = ''
-    success = False
-    if request.method == 'POST':
-        username = request.POST.get('username', None)
-        if not username:
-            error = 'Please enter your username'
-        elif User.objects.filter(username__exact=username).exists():
-            error = 'Sorry, this username is already taken !'
-        else:
-            success = True
+    message = ''
 
-    ajax_vars = {'success': success, 'error': error}
-    return JsonResponse(ajax_vars)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email    = request.POST.get('email')  
+        fname    = request.POST.get('firstName')  
+        lname    = request.POST.get('lastName')  
+        address  = request.POST.get('address')  
+        dob      = request.POST.get('dob')  
+        password = request.POST.get('password')  
+
+        inputs = (username, email, 
+                fname, lname, address,
+                address, dob, password)   
+
+        if User.objects.filter(username__exact=username).exists():
+            message = 'name_taken'
+
+        elif User.objects.filter(email__exact=email).exists():
+            message = 'email_taken'
+        
+        if not message:
+            # create a new user 
+            new_user = User.objects.create_user(
+                            username=username, email=email, password=password,
+                            first_name=fname,
+                            last_name=lname
+                        )
+
+            message = "no_error"
+            # create UserInfo object
+        return HttpResponse(message) 
+            
+            
+    
+                        
+
+
+
+        
+

@@ -1,7 +1,5 @@
  {% extends "base.html" %}
 
-
-
 {% block content %}
 
 {# load static files #}
@@ -15,22 +13,38 @@
 <div class="col-md-2"></div>
 
 <div class="col-md-8">
-	<form method="post" action="{% url 'users:register_validate' %}" id="register-form">
+	<form method="post" id="register-form">
 	{% csrf_token %}
 	<div class="form-group">
-		<input type="text"  name="username"  placeholder="Username" id="username" class="form-control">
-		<input type="email" name="email" 	 placeholder="Email" class="form-control">	
-		<input type="text"  name="firstName" placeholder="First Name" class="form-control">
-		<input type="text"  name="lastName"  placeholder="Last Name" class="form-control">
-		<input type="date"  name="dob" class="form-control">
-		<div id="password">
+		<div id="username">
+			<input type="text"  name="username"  placeholder="Username" id="username" class="form-control">
+		</div>
+		<div id="email">
+			<input type="email" name="email" 	 placeholder="Email" class="form-control">	
+		</div>
+		<div id="firstName">
+			<input type="text"  name="firstName" placeholder="First Name" class="form-control">
+		</div>
+		<div id="lastName">
+			<input type="text"  name="lastName"  placeholder="Last Name" class="form-control">
+		</div>
+		<div id="address">
+			<input type="text"  name="address"  placeholder="Address" class="form-control">
+		</div>
+		<div id="dob">
+			<input type="date"  name="dob" class="form-control">
+		</div>
+		<div id="password" >
 			<input type="password" name="password" placeholder="Password" class="form-control" >
 		</div>
-		<div id="confirmpassword">
+		<div id="confirmpassword" >
 			<input type="password" name="confirmpassword" placeholder="Confirm Password" class="
 			form-control">
 		</div>
-		<input type="submit"    value="Register" class="btn btn-info">	
+		<div>
+			<input type="submit"    value="Register" class="btn btn-info">		
+		</div>
+		
 	</div>
 	</form>
 </div>
