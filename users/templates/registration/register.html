@@ -18,7 +18,7 @@
 	<form method="post" action="{% url 'users:register_validate' %}" id="register-form">
 	{% csrf_token %}
 	<div class="form-group">
-		<input type="text"  name="username"  placeholder="Username" class="form-control">
+		<input type="text"  name="username"  placeholder="Username" id="username" class="form-control">
 		<input type="email" name="email" 	 placeholder="Email" class="form-control">	
 		<input type="text"  name="firstName" placeholder="First Name" class="form-control">
 		<input type="text"  name="lastName"  placeholder="Last Name" class="form-control">
