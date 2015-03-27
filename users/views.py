@@ -1,14 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+
 from django.core.urlresolvers import reverse
 
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
-from django.http import JsonResponse
 
-# Create your views here
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+
+
 def login(request):
 	return render(request, 'login.html')
 
@@ -17,19 +20,29 @@ def logout(request):
     return render(request, 'logout.html')
 
 def login_validate(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    next_url = request.POST.get('next')
+
+    if not next_url:
+        next_url = reverse('users:home')
 
     user = authenticate(username=username, password=password)
 
     if user is not None:
         djlogin(request, user)
-        return HttpResponseRedirect(reverse('users:home'))
+        return HttpResponseRedirect(next_url)
     else:
         return HttpResponseRedirect(reverse('users:login'))
 
+@login_required
 def home(request):
-	return render(request, 'home.html')
+    return render(request, 'home.html')
+
+@login_required
+def test(request):
+	return render(request, 'test.html')
 
 def register(request):
     return render(request, 'register.html')
@@ -58,12 +71,18 @@ def register_validate(request):
         
         if not message:
             # create a new user 
-            new_user = User.objects.create_user(
-                            username=username, email=email, password=password,
-                            first_name=fname,
-                            last_name=lname
-                        )
+            try:
+                new_user = User.objects.create_user(
+                                username=username, email=email, password=password,
+                                first_name=fname,
+                                last_name=lname
+                            )
+                djlogin(request, new_user)
 
+            except Exception, e:
+                print str(e)
+
+            
             message = "no_error"
             # create UserInfo object
         return HttpResponse(message) 

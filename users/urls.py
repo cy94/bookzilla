@@ -10,6 +10,7 @@ urlpatterns = patterns('',
 	# no slash after validate for AJAX
 	url(r'^register/register_validate$', views.register_validate, name='register_validate'),
 	url(r'^home/$', views.home, name='home'),
+	url(r'^test/$', views.test, name='test'),
 	url(r'^logout/$', views.logout, name='logout'),		
 )
 
