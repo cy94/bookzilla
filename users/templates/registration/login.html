@@ -22,7 +22,7 @@
     <input type="password" class="form-control" name="password" id="password" placeholder="Password">
   </div>
 
-  <input type="hidden" name="next" value="{{ next }}" />
+  <input type="hidden" name="next" value="{{ request.GET.next }}" />
   <input type="submit" value="Login" class="btn btn-info" />
   
 </form>
