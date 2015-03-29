@@ -5,9 +5,11 @@
 {% if errors %}
 <p>{{ errors }}</p>
 {% endif %}
+
 <br>
 <br>
 <br>
+
 <div class="col-md-4"></div>
 <form method="post" action="{% url 'users:login_validate' %}">
 {% csrf_token %}

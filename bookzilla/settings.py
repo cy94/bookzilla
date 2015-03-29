@@ -91,3 +91,5 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = '/users/login/'
+
+LOGIN_REDIRECT_URL = '/users/home'

@@ -11,7 +11,9 @@ from django.contrib.auth.models import User
 
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
+from bookzilla.misc import anonymous_required
 
+@anonymous_required
 def login(request):
 	return render(request, 'login.html')
 
@@ -19,6 +21,7 @@ def logout(request):
     djlogout(request)
     return render(request, 'logout.html')
 
+@anonymous_required
 def login_validate(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -44,9 +47,11 @@ def home(request):
 def test(request):
 	return render(request, 'test.html')
 
+@anonymous_required
 def register(request):
     return render(request, 'register.html')
 
+@anonymous_required
 def register_validate(request):
     message = ''
 
