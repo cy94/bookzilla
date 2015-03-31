@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from django.core.urlresolvers import reverse
 
+from django.contrib import messages
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as djlogin
 from django.contrib.auth import logout as djlogout
@@ -17,6 +19,7 @@ from bookzilla.misc import anonymous_required
 def login(request):
 	return render(request, 'login.html')
 
+@login_required
 def logout(request):
     djlogout(request)
     return render(request, 'logout.html')
@@ -35,9 +38,13 @@ def login_validate(request):
 
     if user is not None:
         djlogin(request, user)
+
         return HttpResponseRedirect(next_url)
     else:
-        return HttpResponseRedirect(reverse('users:login'))
+        messages.error(request,
+         'The email or password you entered is incorrect')
+
+        return render(request, 'login.html')
 
 @login_required
 def home(request):
