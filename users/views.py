@@ -42,7 +42,7 @@ def login_validate(request):
         return HttpResponseRedirect(next_url)
     else:
         messages.error(request,
-         'The email or password you entered is incorrect')
+         'The username or password you entered is incorrect')
 
         return render(request, 'login.html')
 
