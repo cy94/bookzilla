@@ -4,6 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Book(models.Model):
-	owner = models.ForeignKey(User)
+	owner = models.ForeignKey(User, related_name='books')
 	title = models.CharField(max_length=50)
 	author = models.CharField(max_length=50)
