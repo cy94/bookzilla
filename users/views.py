@@ -50,10 +50,6 @@ def login_validate(request):
 def home(request):
     return render(request, 'home.html')
 
-@login_required
-def test(request):
-	return render(request, 'test.html')
-
 @anonymous_required
 def register(request):
     return render(request, 'register.html')
