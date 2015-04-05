@@ -11,6 +11,8 @@ from django.contrib.auth import logout as djlogout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from users.models import UserInfo
+
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
 from bookzilla.misc import anonymous_required
@@ -85,6 +87,9 @@ def register_validate(request):
                                 first_name=fname,
                                 last_name=lname
                             )
+
+                new_user_info = UserInfo(user = new_user, address = address, dob = dob)
+                new_user_info.save()
                 djlogin(request, new_user)
 
             except Exception, e:
@@ -94,12 +99,3 @@ def register_validate(request):
             message = "no_error"
             # create UserInfo object
         return HttpResponse(message) 
-            
-            
-    
-                        
-
-
-
-        
-
