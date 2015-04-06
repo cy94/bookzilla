@@ -13,5 +13,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 @login_required
 def index(request):
-	print "books index"
-	return render(request, 'index.html')
+	user = request.user
+	book_list = user.books.all()
+	print book_list
+
+	return render(request, 'books/index.html', {
+			'book_list': book_list
+		})
+

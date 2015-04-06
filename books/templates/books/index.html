@@ -1,7 +1,28 @@
-{% extends "books_base.html" %}
+{% extends "users_base.html" %}
 
 {% block content %}
-Hi {{ user }}. This is your books home.	
+This is your books home.	
+
+<div class="">
+	<h4>Your books</h4>
+
+	{% for book in book_list  %}
+	<div class="col-md-4">
+		<div class="book-box panel panel-primary">
+
+			<div class="panel-heading">
+				<h5 class="book-title panel-title"> {{ book.title }}</h5>	
+			</div>
+			
+			<div class="panel-body">
+				<span class="book-author">{{ book.author }}</span>
+			</div>
+			
+		</div>
+	</div>
+	{% endfor %}
+	
+</div>
 {% endblock content %}
 
 	
