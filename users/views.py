@@ -17,35 +17,38 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
 from bookzilla.misc import anonymous_required
 
-@anonymous_required
-def login(request):
-	return render(request, 'login.html')
-
 @login_required
 def logout(request):
     djlogout(request)
     return render(request, 'logout.html')
 
 @anonymous_required
-def login_validate(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+def login(request):
+    # check if the form was submitted
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-    next_url = request.POST.get('next')
+        # next page to redirect to
+        next_url = request.POST.get('next')
 
-    if not next_url:
-        next_url = reverse('users:home')
+        # default redirect
+        if not next_url:
+            next_url = reverse('users:home')
 
-    user = authenticate(username=username, password=password)
+        user = authenticate(username=username, password=password)
 
-    if user is not None:
-        djlogin(request, user)
+        if user is not None:
+            djlogin(request, user)
 
-        return HttpResponseRedirect(next_url)
+            return HttpResponseRedirect(next_url)
+        else:
+            messages.error(request,
+             'The username or password you entered is incorrect')
+
+            return render(request, 'login.html')
     else:
-        messages.error(request,
-         'The username or password you entered is incorrect')
-
+        # go to the login page
         return render(request, 'login.html')
 
 @login_required
@@ -54,13 +57,11 @@ def home(request):
 
 @anonymous_required
 def register(request):
-    return render(request, 'register.html')
-
-@anonymous_required
-def register_validate(request):
-    message = ''
+    
 
     if request.method == 'POST':
+        message = ''
+
         username = request.POST.get('username')
         email    = request.POST.get('email')  
         fname    = request.POST.get('firstName')  
@@ -94,8 +95,9 @@ def register_validate(request):
 
             except Exception, e:
                 print str(e)
-
             
             message = "no_error"
-            # create UserInfo object
+
         return HttpResponse(message) 
+    else:
+        return render(request, 'register.html')

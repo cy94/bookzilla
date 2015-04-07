@@ -51,7 +51,7 @@ $(document).ready(function(){
 	    var $form = $(this);
 
 	    // post to register_validate view - check if username and email taken
-		$.post($(location).attr("href") + "register_validate", $form.serializeArray(), 
+		$.post($(location).attr("href"), $form.serializeArray(), 
 															   function(msg){
 			console.log(msg);
 
