@@ -1,35 +1,28 @@
 {% extends "users_base.html" %}
 
 {% block content %}
-This is your books home.	
 
 <div class="">
+	<a href="{% url 'users:books:add_book' %}">Add a book now!</a>
+	
 	<h4>Your books</h4>
 
-	{% for book in book_list  %}
-	<div class="col-md-4">
-		<div class="book-box panel panel-primary">
+	{% if book_list%}
 
-			<div class="panel-heading">
-				<h5 class="book-title panel-title"> {{ book.title }}</h5>	
-			</div>
-			
-			<div class="panel-body">
-				<span class="book-author">{{ book.author }}</span>
-			</div>
-
-			<div class="buttons">
-				<a href="#" class="edit-button">
-					edit
-				</a>
-				<a href="#" class="delete-button">
-					<span class="glyphicon glyphicon-remove"></span>
-				</a>
-			</div>
-			
+		{% for book in book_list  %}
+		<div class="col-md-4">
+			{% include "_book_detail.html" %}
 		</div>
-	</div>
-	{% endfor %}
+		{% endfor %}
+
+	{% else %}
+
+		<div>
+			You don't have any books.
+			<a href="{% url 'users:books:add_book' %}">Add a book now!</a>
+		</div>
+
+	{% endif %}	
 	
 </div>
 {% endblock content %}

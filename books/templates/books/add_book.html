@@ -1,11 +1,8 @@
-{% extends "base.html" %}
+{% extends "users_base.html" %}
 
 {% block content %}
 
-
-<div class="col-md-4"></div>
-
-<div class="col-md-4">
+<div class="col-md-6">
 
   {% if messages %}
     {% for msg in messages %}
@@ -29,6 +26,5 @@
 
 </div>  
 
-<div class="col-md-4"></div>
 
 {% endblock %}

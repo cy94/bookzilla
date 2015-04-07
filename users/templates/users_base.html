@@ -30,10 +30,6 @@
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="{% url 'index' %}">Bookzilla</a>
         </div>
@@ -47,10 +43,16 @@
 
     <div class="container">
       <div class="starter-template">
-        <div><a href="/users/books/">My Books</a></div>
-        
+              
+      <div class="col-md-3" id="left-nav">
+        {% include "_left_nav.html" %}
+      </div>  
+
+      <div class="col-md-9">
         {% block content %}
         {% endblock %}
+      </div>
+        
       </div>
     </div><!-- /.container -->
 
