@@ -1,3 +1,6 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "css/book-detail.css" %}">
+
 <div class="book-box panel panel-primary">
 
 	<div class="panel-heading">
@@ -10,9 +13,10 @@
 
 	<div class="buttons">
 		<a href="#" class="edit-button">
-			edit
+			{# edit #}
+			<span class="glyphicon glyphicon-edit"></span>
 		</a>
-		<a href="#" class="delete-button" style="color:maroon">
+		<a href="#" class="delete-button">
 			<span class="glyphicon glyphicon-remove"></span>
 		</a>
 	</div>

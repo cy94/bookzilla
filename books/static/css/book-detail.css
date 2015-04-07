@@ -1,0 +1,12 @@
+.buttons{
+	text-align: right;
+	position: relative;
+	right: 10px;
+	bottom: 5px;
+}
+.edit-button{
+}
+
+.delete-button{
+	color: maroon;
+}
