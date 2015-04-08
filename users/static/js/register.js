@@ -41,7 +41,7 @@ $(document).ready(function(){
 		// password check
 		if($('#password').find('input').val() != $('#confirmpassword').find('input').val()){
 
-			$('#password').after('<p class="error-msg">Passwords do not match.</p>');
+			$('#password input').after('<p class="error-msg">Passwords do not match.</p>');
 			pw_match = false;
 
 		}

@@ -15,7 +15,6 @@ from books.models import Book
 def index(request):
 	user = request.user
 	book_list = user.books.all()
-	print book_list
 
 	return render(request, 'books/index.html', {
 			'book_list': book_list
