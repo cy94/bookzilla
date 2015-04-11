@@ -40,9 +40,20 @@ def add_book(request):
 def edit_book(request):
 	if request.method == 'POST':
 		form = EditBookForm(request.POST)
+
+		if form.is_valid():
+			title = form.cleaned_data['title']
+			author = form.cleaned_data['author']
+
+			print title, author
+			
 		return HttpResponseRedirect(reverse("users:books:index"))
 	else:
-		return render(request, 'books/edit_books.html')
+		form = EditBookForm()
+		return render(request, 
+					'books/edit_books.html',{
+						'form': form
+					})
 
 
 

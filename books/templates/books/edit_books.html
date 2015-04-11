@@ -1,0 +1,16 @@
+{% extends "users_base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+	<form action="{% url 'users:books:edit_book' %}" method="post">
+		{% csrf_token %}
+
+		<form>
+			{% for field in form  %}
+				{{ field|add_class:"form-control" }}
+			{% endfor %}
+			<input type="submit" value="Done editing" />	
+		</form>
+		
+	</form>
+{% endblock content %}
