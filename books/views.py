@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from books.models import Book
 
+from .forms import EditBookForm
+
 # Create your views here.
 @login_required
 def index(request):
@@ -33,6 +35,14 @@ def add_book(request):
 		return HttpResponseRedirect(reverse("users:books:index"))
 	else:
 		return render(request, 'books/add_book.html')
+
+@login_required
+def edit_book(request):
+	if request.method == 'POST':
+		form = EditBookForm(request.POST)
+		return HttpResponseRedirect(reverse("users:books:index"))
+	else:
+		return render(request, 'books/edit_books.html')
 
 
 

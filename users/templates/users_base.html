@@ -49,6 +49,12 @@
       </div>  
 
       <div class="col-md-9">
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="alert alert-danger">{{ msg }}</div>  
+          {% endfor %}
+        {% endif %}
+
         {% block content %}
         {% endblock %}
       </div>
