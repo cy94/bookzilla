@@ -12,6 +12,9 @@ from books.models import Book
 
 from .forms import EditBookForm
 
+from django.shortcuts import get_object_or_404
+
+
 # Create your views here.
 @login_required
 def index(request):
@@ -56,4 +59,6 @@ def edit_book(request):
 					})
 
 
-
+def delete(request, id):
+    book = get_object_or_404(Book, pk=id).delete()
+    return HttpResponseRedirect(reverse("users:books:index"))
