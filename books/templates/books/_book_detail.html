@@ -17,7 +17,7 @@
 			class="edit-button">
 			<span class="glyphicon glyphicon-edit"></span>
 		</a>
-		<a href="#" class="delete-button">
+		<a href="{% url 'users:books:delete' book.id	%}" class="delete-button">
 			<span class="glyphicon glyphicon-remove"></span>
 		</a>
 	</div>
