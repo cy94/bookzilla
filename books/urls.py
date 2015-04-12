@@ -6,7 +6,7 @@ from books import views
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
 	url(r'^add_book/$', views.add_book, name='add_book'),
-	url(r'^edit_book/$', views.edit_book, name='edit_book'),
+	url(r'^edit_book/(?P<book_id>\d+)/$', views.edit_book, name='edit_book'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

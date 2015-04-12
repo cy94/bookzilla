@@ -12,8 +12,9 @@
 	</div>
 
 	<div class="buttons">
-		<a href="#" class="edit-button">
-			{# edit #}
+		{# link to edit this book #}
+		<a href="{% url 'users:books:edit_book' book.id %}" 
+			class="edit-button">
 			<span class="glyphicon glyphicon-edit"></span>
 		</a>
 		<a href="#" class="delete-button">

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.core.urlresolvers import reverse
 
@@ -37,22 +37,43 @@ def add_book(request):
 		return render(request, 'books/add_book.html')
 
 @login_required
-def edit_book(request):
+def edit_book(request, book_id):
+	# the decorator makes sure there is a user
+	user = request.user
+
+	# book not found - 404 or error message ?
+	book = get_object_or_404(Book, pk=book_id)
+
+	# book does not belong to user - error
+	if book not in user.books.all():
+		return HttpResponseRedirect(reverse("users:home"))
+
+	# form submitted - update the model
 	if request.method == 'POST':
 		form = EditBookForm(request.POST)
 
 		if form.is_valid():
-			title = form.cleaned_data['title']
-			author = form.cleaned_data['author']
+			book.title = form.cleaned_data['title']
+			book.author = form.cleaned_data['author']
+			book.save()
 
-			print title, author
-			
+			messages.success(request,
+				'Updated your book successfully'
+				)
+
 		return HttpResponseRedirect(reverse("users:books:index"))
+		
+	# display the form
 	else:
-		form = EditBookForm()
+		form = EditBookForm({
+				'title': book.title,
+				'author': book.author
+			})
+
 		return render(request, 
-					'books/edit_books.html',{
-						'form': form
+					'books/edit_book.html',{
+						'form': form,
+						'book_id': book_id
 					})
 
 
