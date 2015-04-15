@@ -11,6 +11,8 @@ urlpatterns = patterns('',
 
 	# books module
 	url(r'^books/', include('books.urls', namespace='books')),
+	# bookrequests module
+	url(r'^requests/', include('bookrequests.urls', namespace='requests')),
 )
 
 urlpatterns += staticfiles_urlpatterns()

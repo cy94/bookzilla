@@ -12,8 +12,8 @@ from books.models import Book
 
 from .forms import EditBookForm
 
-from django.shortcuts import get_object_or_404
-
+# for search
+from django.db.models import Q
 
 # Create your views here.
 @login_required
@@ -79,7 +79,25 @@ def edit_book(request, book_id):
 						'book_id': book_id
 					})
 
-
+@login_required
 def delete(request, id):
     book = get_object_or_404(Book, pk=id).delete()
     return HttpResponseRedirect(reverse("users:books:index"))
+
+@login_required
+def search(request):
+	if request.method == 'POST':
+		query_string = request.POST.get('query')
+		results = Book.objects.filter(
+				Q(title__icontains=query_string) |
+				Q(author__icontains=query_string)
+			)
+
+		print results
+			
+		return render(request, 
+						'books/search.html', {
+						'results': results
+					})
+	else:
+		return HttpResponseRedirect(reverse("users:books:index"))		

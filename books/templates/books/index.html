@@ -18,8 +18,8 @@
 	{% else %}
 
 		<div>
-			You don't have any books.
-			<a href="{% url 'users:books:add_book' %}">Add a book now!</a>
+			You haven't added any books yet. 
+			<a href="{% url 'users:books:add_book' %}"> Add a book now!</a>
 		</div>
 
 	{% endif %}	
