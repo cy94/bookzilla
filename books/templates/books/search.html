@@ -1,0 +1,15 @@
+{% extends "users_base.html" %}
+
+{% block content %}
+	{% if results %}
+		{% for book in results %}
+			<div class="col-md-4">
+					{% include "_book_detail.html" %}
+			</div>
+		{% endfor %}	
+	{% else %}
+		No results found! Try again?
+	{% endif %}
+	
+
+{% endblock content %}

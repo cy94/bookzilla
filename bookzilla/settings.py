@@ -16,7 +16,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'users/templates/registration'),
                  os.path.join(BASE_DIR, 'users/templates/users'),
-                 os.path.join(BASE_DIR, 'books/templates/books') ]
+                 os.path.join(BASE_DIR, 'books/templates/books'), 
+                 os.path.join(BASE_DIR, 'bookrequests/templates/bookrequests') 
+                 ]
 
 
 # Quick-start development settings - unsuitable for production
@@ -35,7 +37,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = (
+PREREQ_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,9 +45,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    )
+
+PROJECT_APPS = (
     'users',
     'books',
+    'bookrequests',
 )
+
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
