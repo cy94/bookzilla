@@ -81,7 +81,15 @@ def edit_book(request, book_id):
 
 @login_required
 def delete(request, id):
-    book = get_object_or_404(Book, pk=id).delete()
+
+
+    book = get_object_or_404(Book, pk=id)
+
+    if (book.owner == request.user):
+    	book.delete()
+    	messages.success(request, 'Deleted your book successfully.')
+    else:
+    	messages.warning(request, 'Could not delet your book.')
     return HttpResponseRedirect(reverse("users:books:index"))
 
 @login_required
