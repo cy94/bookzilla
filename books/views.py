@@ -81,15 +81,14 @@ def edit_book(request, book_id):
 
 @login_required
 def delete(request, id):
-
-
     book = get_object_or_404(Book, pk=id)
 
     if (book.owner == request.user):
     	book.delete()
-    	messages.success(request, 'Deleted your book successfully.')
+    	messages.success(request, 'Deleted your book successfully')
     else:
-    	messages.warning(request, 'Could not delet your book.')
+    	messages.warning(request, 'Could not delete this book')
+
     return HttpResponseRedirect(reverse("users:books:index"))
 
 @login_required
@@ -101,8 +100,6 @@ def search(request):
 				Q(author__icontains=query_string)
 			)
 
-		print results
-			
 		return render(request, 
 						'books/search.html', {
 						'results': results

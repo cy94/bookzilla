@@ -5,23 +5,29 @@ from django.contrib.auth.models import User
 from books.models import Book
 
 class BookRequest(models.Model):
-	WITH_OWNER = 0
+	REQUEST_MADE = 0
+
 	REQUEST_ACCEPTED = 1
-	WITH_COURIER_TO_BORROWER = 2
-	WITH_BORROWER = 3
-	DONE_READING = 4
-	WITH_COURIER_TO_OWNER = 5
-	RETURNED = 6
-	REQUEST_REJECTED = 7
+	REQUEST_REJECTED = 2
+
+	WITH_COURIER_TO_BORROWER = 3
+
+	WITH_BORROWER = 4
+	DONE_READING = 5
+
+	WITH_COURIER_TO_OWNER = 6
+	RETURNED = 7
+	
 
 	STATUS_CHOICES = (
-		(WITH_OWNER , 'with owner')
-		(ACCEPTED , 'accepted')
-		(WITH_COURIER_TO_BORROWER , '')
-		(WITH_BORROWER , '')
-		(DONE_READING , '')
-		(WITH_COURIER_TO_OWNER , '')
-		(RETURNED , '')
+		(REQUEST_MADE, 'request pending'),
+		(REQUEST_ACCEPTED, 'request accepted' ),
+		(REQUEST_REJECTED, 'request rejected' ),
+		(WITH_COURIER_TO_BORROWER, 'being delivered to borrower' ),
+		(WITH_BORROWER, 'with borrower' ),
+		(DONE_READING, 'done reading' ),
+		(WITH_COURIER_TO_OWNER, 'being delivered to owner' ),
+		(RETURNED, 'returned' ),
 	)		
 
 	book = models.OneToOneField(Book)
