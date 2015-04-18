@@ -1,5 +1,8 @@
 {% extends "users_base.html" %}
 
+{# load template tags #}
+{% load book_extras %}
+
 {% block content %}
 
 <div class="">
@@ -11,7 +14,7 @@
 
 		{% for book in book_list  %}
 			<div class="col-md-4">
-				{% include "_book_detail.html" %}
+				{% show_book_private book %}
 			</div>
 		{% endfor %}
 
