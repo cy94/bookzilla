@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 
 from django.http import HttpResponse, HttpResponseRedirect
 from books.models import Book
+from bookrequests.models import BookRequest
 
 from .forms import EditBookForm
 
@@ -106,3 +107,11 @@ def search(request):
 					})
 	else:
 		return HttpResponseRedirect(reverse("users:books:index"))		
+
+@login_required
+def make_request(request, id):
+	book_obj = get_object_or_404(Book, pk=id)
+	new_request = BookRequest(book = book_obj, borrower = request.user, status = 0)
+	new_request.save()
+	messages.success(request, 'You have successfully requested this book')
+	return HttpResponseRedirect(reverse("users:books:index"))

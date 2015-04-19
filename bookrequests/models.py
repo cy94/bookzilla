@@ -30,7 +30,7 @@ class BookRequest(models.Model):
 		(RETURNED, 'returned' ),
 	)		
 
-	book = models.OneToOneField(Book)
-	borrower = models.OneToOneField(User)
+	book = models.ForeignKey(Book)
+	borrower = models.ForeignKey(User)
 	status = models.IntegerField(default=0, choices=STATUS_CHOICES)
 
