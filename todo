@@ -1,0 +1,37 @@
+backlog
+-------
+confirm before deleting book
+JS validation for edit-book
+dont show owned books in search results
+
+other
+-----
+add user rating to UserInfo model
+
+borrower side
+-------------
+click request in the search results page
+confirm the request 
+change the status of request
+(create a notification for the owner)
+go to my requests page and show request as pending
+
+owner side
+----------
+notif takes owner to lent books page
+pending request is highlighted
+click accept / request 
+(create notif for the borrower)
+accept-
+	check if the book is available
+	and change the status
+reject-
+	change status of book
+
+
+courier interface
+-----------------
+list of books waiting for pick up / drop
+for each book show the -
+	pick up /drop - name, address
+	link to confirm pick up / drop
