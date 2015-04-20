@@ -1,5 +1,6 @@
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static "css/book-detail.css" %}">
+<script type="text/javascript" src="{% static "js/book-private.js" %}"></script>
 
 <div class="book-box panel panel-primary">
 	<div class="panel-heading">
@@ -16,7 +17,7 @@
 			class="edit-button">
 			<span class="glyphicon glyphicon-edit"></span>
 		</a>
-		<a href="{% url 'users:books:delete' book_id	%}" class="delete-button">
+		<a href="{% url 'users:books:delete' book_id %}" class="delete-button">
 			<span class="glyphicon glyphicon-remove"></span>
 		</a>
 	</div>
