@@ -36,6 +36,6 @@ class BookRequest(models.Model):
 
 	def __str__(self):
 		return str(self.borrower) + \
-				" borrowed " + str(self.book) + " from " + \
+				" requested " + str(self.book) + " from " + \
 				 str(self.book.owner)
 

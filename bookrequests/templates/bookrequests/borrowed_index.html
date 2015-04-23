@@ -1,9 +1,19 @@
 {% extends "users_base.html" %}
 
 {% block content %}
-<ul>
-	{% for r in requests %}
-		<li>{{ r }}</li>
-	{% endfor %}
-</ul>
+
+{% if requests %}
+
+	<div class="list-group">
+		{% for r in requests %}
+			<p>{{ r }}</p>
+		{% endfor %}
+	</div>	
+
+{% else %}
+
+	You have not borrowed any books yet. Try searching for a book!
+
+{% endif %}
+
 {% endblock content %}

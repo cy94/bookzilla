@@ -1,3 +1,5 @@
+# template tags used for books
+
 from django import template
 
 register = template.Library()

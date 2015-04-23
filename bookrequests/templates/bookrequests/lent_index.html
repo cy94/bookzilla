@@ -3,13 +3,15 @@
 {% block content %}
 
 {% if requests %}
-	<ul>
-		{% for r in requests %}
-			<li>{{ r }}</li>
-		{% endfor %}
-	</ul>
 		
+	<div class="list-group">
+		{% for r in requests %}
+			<p class="list-group-item">{{ r }}</p>
+		{% endfor %}
+	</div>		
+
 {% else %}
+
 	You have not lent out any books yet. 
 	Try 
 	<a href="{% url 'users:books:add_book' %}">
