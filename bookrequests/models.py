@@ -34,3 +34,8 @@ class BookRequest(models.Model):
 	borrower = models.ForeignKey(User)
 	status = models.IntegerField(default=0, choices=STATUS_CHOICES)
 
+	def __str__(self):
+		return str(self.borrower) + \
+				" borrowed " + str(self.book) + " from " + \
+				 str(self.book.owner)
+

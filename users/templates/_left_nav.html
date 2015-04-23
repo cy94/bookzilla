@@ -1,13 +1,21 @@
 <ul class="nav nav-tabs nav-stacked">
 	<li>
-	  	<a href="{% url 'users:home' %}">Home</a>
-  	</li>
+		<a href="{% url 'users:home' %}">Home</a>
+	</li>
 
-  <li>
-  	<a href="{% url 'users:books:index' %}">My Books</a>
-  </li>
+	<li>
+		<a href="{% url 'users:books:index' %}">My Books</a>
+	</li>
 
-  <li>
-  	<a href="#">Account</a>
-  </li>
+	<li>
+		<a href="{% url 'users:requests:borrowed' %}">My Requests</a>
+	</li>
+
+	<li>
+		<a href="{% url 'users:requests:lent' %}">My Lent Books</a>
+	</li>
+
+	<li>
+		<a href="#">Account</a>
+	</li>
 </ul>

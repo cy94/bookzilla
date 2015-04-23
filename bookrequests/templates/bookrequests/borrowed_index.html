@@ -1,0 +1,9 @@
+{% extends "users_base.html" %}
+
+{% block content %}
+<ul>
+	{% for r in requests %}
+		<li>{{ r }}</li>
+	{% endfor %}
+</ul>
+{% endblock content %}

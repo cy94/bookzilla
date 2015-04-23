@@ -28,22 +28,24 @@
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
-
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           </button>
           <a class="navbar-brand" href="{% url 'index' %}">Bookzilla</a>
         </div>
 
-        <form class="navbar-form navbar-left" role="search" 
-           method="post" action="{% url 'users:books:search' %}">
-           {% csrf_token %}
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" 
-              name="query">
-          </div>
-          <button type="submit" class="btn btn-default">Search</button>
-        </form>
+          <form class="navbar-form navbar-left" 
+           method="post" action="{% url 'users:books:search' %}" id="search">
+             {% csrf_token %}
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search" 
+                name="query">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>  
+          
+          
+        
 
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">

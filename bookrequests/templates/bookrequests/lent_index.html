@@ -1,0 +1,21 @@
+{% extends "users_base.html" %}
+
+{% block content %}
+
+{% if requests %}
+	<ul>
+		{% for r in requests %}
+			<li>{{ r }}</li>
+		{% endfor %}
+	</ul>
+		
+{% else %}
+	You have not lent out any books yet. 
+	Try 
+	<a href="{% url 'users:books:add_book' %}">
+		adding a book?
+	</a>
+	
+{% endif %}
+
+{% endblock content %}
