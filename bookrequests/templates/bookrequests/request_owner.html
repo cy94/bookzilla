@@ -7,11 +7,13 @@ href="{% static "css/request-owner.css" %}">
 
 	{% if accept_buttons %}
 		<p class="accept-buttons">
-			<a href="#" class="accept-button">
+			<a href="{% url 'users:requests:accept' request_id %}" 
+			class="accept-button">
 				<span class="glyphicon glyphicon-ok"></span>
 			</a>
 
-			<a href="#" class="reject-button">
+			<a href="{% url 'users:requests:reject' request_id %}"
+			class="reject-button">
 				<span class="glyphicon glyphicon-remove"></span>
 			</a>
 		</p>

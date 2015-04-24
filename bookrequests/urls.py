@@ -6,6 +6,8 @@ from bookrequests import views
 urlpatterns = patterns('',
 	url(r'^lent/$', views.lent_index, name='lent'),
 	url(r'^borrowed/$', views.borrowed_index, name='borrowed'),
+	url(r'^accept/(?P<id>\d+)/$', views.accept, name='accept'),
+	url(r'^reject/(?P<id>\d+)/$', views.reject, name='reject'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

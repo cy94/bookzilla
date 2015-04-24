@@ -19,16 +19,27 @@ register = template.Library()
 def show_request_owner(req):
 	accept_buttons = False
 
-	if req.status == BookRequest.REQUEST_MADE:
-		message = str(req.borrower) + \
-				" sent you a request for " + \
-				str(req.book.title) + \
-				" (by " + str(req.book.author) + ")"
+	borrower = str(req.borrower)
+	title = str(req.book.title)
+	author = str(req.book.author)
 
+	messages = {
+		BookRequest.REQUEST_MADE:
+		 "{0} sent you a request for {1}".format(borrower, title),
+		BookRequest.REQUEST_ACCEPTED:
+		 "Accepted request by {0} for {1}".format(borrower, title),
+		BookRequest.REQUEST_REJECTED:
+		 "Rejected request by {0} for {1}".format(borrower, title),
+	}
+
+	if req.status == BookRequest.REQUEST_MADE:
 		accept_buttons = True
 
+	print accept_buttons
+
 	return {
-		'message': message,
+		'request_id': req.id,
+		'message': messages[req.status],
 		'accept_buttons': accept_buttons
 	}
 

@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
+from django.core.urlresolvers import reverse
 
 # models
 from books.models import Book
@@ -35,4 +38,22 @@ def borrowed_index(request):
 				{
 					'requests': list(my_borrowed)
 				})
+
+@login_required
+def accept(request, id):
+	req = get_object_or_404(BookRequest, pk=id)
+	
+	req.status = BookRequest.REQUEST_ACCEPTED
+	req.save()
+
+	return HttpResponseRedirect(reverse('users:requests:lent'))
+
+@login_required
+def reject(request, id):
+	req = get_object_or_404(BookRequest, pk=id)	
+
+	req.status = BookRequest.REQUEST_REJECTED
+	req.save()
+	
+	return HttpResponseRedirect(reverse('users:requests:lent'))	
 
