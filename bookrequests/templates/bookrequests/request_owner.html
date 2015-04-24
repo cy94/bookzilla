@@ -1,0 +1,19 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" 
+href="{% static "css/request-owner.css" %}">
+
+<div>
+	{{ message }}
+
+	{% if accept_buttons %}
+		<p class="accept-buttons">
+			<a href="#" class="accept-button">
+				<span class="glyphicon glyphicon-ok"></span>
+			</a>
+
+			<a href="#" class="reject-button">
+				<span class="glyphicon glyphicon-remove"></span>
+			</a>
+		</p>
+	{% endif %}
+</div>
