@@ -3,6 +3,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from users import views
 
+import notifications
+
 urlpatterns = patterns('',
 	url(r'^home/$', views.home, name='home'),
 	url(r'^register/$', views.register, name='register'),
@@ -13,6 +15,8 @@ urlpatterns = patterns('',
 	url(r'^books/', include('books.urls', namespace='books')),
 	# bookrequests module
 	url(r'^requests/', include('bookrequests.urls', namespace='requests')),
+	# notifications
+    url('^inbox/notifications/', include(notifications.urls)),
 )
 
 urlpatterns += staticfiles_urlpatterns()

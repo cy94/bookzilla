@@ -44,16 +44,21 @@ PREREQ_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+ADDON_APPS = (
     'widget_tweaks',
-    )
+    'notifications',
+)
 
 PROJECT_APPS = (
     'users',
     'books',
     'bookrequests',
+    'courier',
 )
 
-INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS
+INSTALLED_APPS = PREREQ_APPS + PROJECT_APPS + ADDON_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

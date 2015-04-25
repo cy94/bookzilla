@@ -25,11 +25,21 @@ def show_request_owner(req):
 
 	messages = {
 		BookRequest.REQUEST_MADE:
-		 "{0} sent you a request for {1}".format(borrower, title),
+			 "{0} sent you a request for {1}",
 		BookRequest.REQUEST_ACCEPTED:
-		 "Accepted request by {0} for {1}".format(borrower, title),
+			 "Accepted request by {0} for {1}",
 		BookRequest.REQUEST_REJECTED:
-		 "Rejected request by {0} for {1}".format(borrower, title),
+			 "Rejected request by {0} for {1}",
+		BookRequest.WITH_COURIER_TO_BORROWER:
+			"Your book {1} is being sent to {0}", 
+		BookRequest.WITH_BORROWER:
+			"Your book {1} is with {0}", 
+		BookRequest.DONE_READING:
+			"{0} has finished reading your book {1}", 
+		BookRequest.WITH_COURIER_TO_OWNER:
+			"Your book {1} is being sent back to you from {0}", 
+		BookRequest.RETURNED:
+			"{1} has been returned by {0}", 
 	}
 
 	if req.status == BookRequest.REQUEST_MADE:
@@ -39,7 +49,8 @@ def show_request_owner(req):
 
 	return {
 		'request_id': req.id,
-		'message': messages[req.status],
+		# add the borrower and title into the message
+		'message': messages[req.status].format(borrower, title),
 		'accept_buttons': accept_buttons
 	}
 
@@ -47,3 +58,8 @@ def show_request_owner(req):
 @register.inclusion_tag('bookrequests/request_borrower.html')
 def show_request_borrower(req):
 	pass
+
+# request tracking by the courier
+@register.inclusion_tag('bookrequests/request_courier.html')
+def show_request_courier(req):
+	pass	
