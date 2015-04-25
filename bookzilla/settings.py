@@ -17,7 +17,8 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates'),
                  os.path.join(BASE_DIR, 'users/templates/registration'),
                  os.path.join(BASE_DIR, 'users/templates/users'),
                  os.path.join(BASE_DIR, 'books/templates/books'), 
-                 os.path.join(BASE_DIR, 'bookrequests/templates/bookrequests') 
+                 os.path.join(BASE_DIR, 'bookrequests/templates/bookrequests'), 
+                 os.path.join(BASE_DIR, 'courier/templates/courier'), 
                  ]
 
 
