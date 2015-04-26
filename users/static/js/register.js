@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 	    // post to register_validate view - check if username and email taken
 		$.post($(location).attr("href"), $form.serializeArray(), 
-															   function(msg){
+										function(msg){
 			console.log(msg);
 
 			if(msg == "name_taken"){

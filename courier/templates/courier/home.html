@@ -1,5 +1,15 @@
 {% extends "courier_home.html" %}
+{% load request_extras %}
+
 {% block content %}
-	This is the courier home page	
+	<div class="list-group">
+		{% for r in requests %}
+			<div class="list-group-item">
+				{% show_request_courier r %}
+			</div>
+		{% empty%}
+			Nothing to do right now. Come back in some time!
+		{% endfor %}
+	</div>
 {% endblock content %}
 	

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -12,6 +12,8 @@ from django.contrib.auth import logout as djlogout
 from .forms import LoginForm
 
 from .misc import is_member
+
+from bookrequests.models import BookRequest
 
 def login(request):
 	if request.method == 'POST':
@@ -38,9 +40,32 @@ def login(request):
 
 @login_required(login_url='/courier/login')
 def home(request):
-	return render(request, 'courier/home.html')
+	requests = BookRequest.objects.all()
+
+	statuses = (
+			BookRequest.REQUEST_ACCEPTED,
+			BookRequest.WITH_COURIER_TO_BORROWER,
+			BookRequest.DONE_READING,
+			BookRequest.WITH_COURIER_TO_OWNER,
+		)
+
+	request_list = (r for r in requests 
+					if r.status in statuses)
+
+	return render(request, 'courier/home.html',
+				{
+					'requests' : request_list
+				})
 
 @login_required(login_url='/courier/login')
 def logout(request):
 	djlogout(request)
 	return HttpResponseRedirect(reverse('courier:login'))
+
+@login_required(login_url='/courier/login')
+def advance_request(request, req_id):
+	req = get_object_or_404(BookRequest, pk=req_id)
+	req.status = req.next_status()
+	req.save()
+	
+	return HttpResponseRedirect(reverse('courier:home'))

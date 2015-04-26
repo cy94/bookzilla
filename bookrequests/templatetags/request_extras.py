@@ -62,4 +62,29 @@ def show_request_borrower(req):
 # request tracking by the courier
 @register.inclusion_tag('bookrequests/request_courier.html')
 def show_request_courier(req):
-	pass	
+	print "showing:", req
+	
+	messages = {
+		BookRequest.REQUEST_ACCEPTED:
+			"Pick up {title} from {addr}".format(
+				title=req.book.title,
+				addr=req.book.owner.userinfo.address),
+		BookRequest.WITH_COURIER_TO_BORROWER:
+			"Drop off {title} to {addr}".format(
+				title=req.book.title,
+				addr=req.borrower.userinfo.address),
+		BookRequest.DONE_READING:
+			"Pick up {title} from {addr}".format(
+				title=req.book.title,
+				addr=req.borrower.userinfo.address),
+		BookRequest.WITH_COURIER_TO_OWNER:
+			"Drop off {title} to {addr}".format(
+				title=req.book.title,
+				addr=req.book.owner.userinfo.address),
+	}
+
+	return {
+		# add the book title into the message
+		'message': messages[req.status],
+		'req_id': req.id,
+	}	

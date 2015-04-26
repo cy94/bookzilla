@@ -39,3 +39,26 @@ class BookRequest(models.Model):
 				" requested " + str(self.book) + " from " + \
 				 str(self.book.owner)
 
+	def next_status(self):
+		next_statuses = {
+			# set manually, dont use this function
+			# to advance a pending request
+			self.REQUEST_MADE: self.REQUEST_MADE,
+
+			self.REQUEST_ACCEPTED: self.WITH_COURIER_TO_BORROWER,
+
+			self.REQUEST_REJECTED: self.REQUEST_REJECTED,
+
+			self.WITH_COURIER_TO_BORROWER: self.WITH_BORROWER,
+
+			self.WITH_BORROWER: self.DONE_READING,
+
+			self.DONE_READING: self.WITH_COURIER_TO_OWNER,
+
+			self.WITH_COURIER_TO_OWNER: self.RETURNED,
+
+			self.RETURNED: self.RETURNED,
+		}
+
+		return next_statuses[self.status]
+
