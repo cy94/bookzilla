@@ -6,7 +6,7 @@ href="{% static "css/request-owner.css" %}">
 	{{ message }}
 
 	{% if accept_buttons %}
-		<p class="accept-buttons">
+		<span class="accept-buttons">
 			<a href="{% url 'users:requests:accept' request_id %}" 
 			class="accept-button">
 				<span class="glyphicon glyphicon-ok"></span>
@@ -16,6 +16,6 @@ href="{% static "css/request-owner.css" %}">
 			class="reject-button">
 				<span class="glyphicon glyphicon-remove"></span>
 			</a>
-		</p>
+		</span>
 	{% endif %}
 </div>

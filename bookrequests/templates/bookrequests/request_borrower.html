@@ -9,11 +9,9 @@ href="{% static "css/request-borrower.css" %}">
 	{{ message }}
 
 	{% if return_button %}
-		<p class="return-buttons">
 			<a href="{% url 'users:requests:return' request_id %}" 
 			class="return-button">
 				<span class="glyphicon glyphicon-check"></span>
 			</a>
-		</p>
 	{% endif %}
 </div>

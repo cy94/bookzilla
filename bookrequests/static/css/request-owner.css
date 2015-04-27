@@ -1,3 +1,7 @@
+.accept-buttons{
+	float: right;
+}
+
 .accept-button{
 	color: green;
 }
