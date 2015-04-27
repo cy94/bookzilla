@@ -7,7 +7,9 @@
 		
 	<div class="list-group">
 		{% for r in requests %}
-			{% show_request_owner r %}
+			<div class="list-group-item">
+				{% show_request_owner r %}
+			</div>
 		{% endfor %}
 	</div>		
 

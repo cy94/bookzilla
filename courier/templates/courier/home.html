@@ -1,13 +1,16 @@
 {% extends "courier_home.html" %}
 {% load request_extras %}
+{% load staticfiles %}
 
 {% block content %}
-	<div class="list-group">
+<div class="col-md-3"></div>
+
+	<div class="list-group col-md-6">
 		{% for r in requests %}
 			<div class="list-group-item">
 				{% show_request_courier r %}
 			</div>
-		{% empty%}
+		{% empty %}
 			Nothing to do right now. Come back in some time!
 		{% endfor %}
 	</div>

@@ -17,8 +17,6 @@ register = template.Library()
 
 @register.inclusion_tag('bookrequests/request_owner.html')
 def show_request_owner(req):
-	accept_buttons = False
-
 	borrower = str(req.borrower)
 	title = str(req.book.title)
 	author = str(req.book.author)
@@ -42,10 +40,7 @@ def show_request_owner(req):
 			"{1} has been returned by {0}", 
 	}
 
-	if req.status == BookRequest.REQUEST_MADE:
-		accept_buttons = True
-
-	print accept_buttons
+	accept_buttons = (req.status == BookRequest.REQUEST_MADE)
 
 	return {
 		'request_id': req.id,
@@ -57,7 +52,37 @@ def show_request_owner(req):
 # request tracking by the borrower of a book
 @register.inclusion_tag('bookrequests/request_borrower.html')
 def show_request_borrower(req):
-	pass
+	owner = str(req.book.owner)
+	title = str(req.book.title)
+	author = str(req.book.author)
+
+	messages = {
+		BookRequest.REQUEST_MADE:
+			 "{0} is yet to approve your request for {1}",
+		BookRequest.REQUEST_ACCEPTED:
+			 "{0} has accepted your request for {1}",
+		BookRequest.REQUEST_REJECTED:
+			 "{0} has rejected your request for {1}",
+		BookRequest.WITH_COURIER_TO_BORROWER:
+			"{0} has handed over {1} to the courier", 
+		BookRequest.WITH_BORROWER:
+			"{0}'s book {1} is with you", 
+		BookRequest.DONE_READING:
+			"Our courier will pick up {1} from you shortly", 
+		BookRequest.WITH_COURIER_TO_OWNER:
+			"{1} is being sent back to {0}", 
+		BookRequest.RETURNED:
+			"You have returned {1} to {0}", 
+	}
+
+	return_button = (req.status == BookRequest.WITH_BORROWER)
+
+	return {
+		'request_id': req.id,
+		# add the borrower and title into the message
+		'message': messages[req.status].format(owner, title),
+		'return_button': return_button
+	}
 
 # request tracking by the courier
 @register.inclusion_tag('bookrequests/request_courier.html')
@@ -66,20 +91,24 @@ def show_request_courier(req):
 	
 	messages = {
 		BookRequest.REQUEST_ACCEPTED:
-			"Pick up {title} from {addr}".format(
+			"Pick up {title} from {name}, {addr}".format(
 				title=req.book.title,
+				name=req.book.owner.username,
 				addr=req.book.owner.userinfo.address),
 		BookRequest.WITH_COURIER_TO_BORROWER:
-			"Drop off {title} to {addr}".format(
+			"Drop off {title} to {name}, {addr}".format(
 				title=req.book.title,
+				name=req.borrower.username,
 				addr=req.borrower.userinfo.address),
 		BookRequest.DONE_READING:
-			"Pick up {title} from {addr}".format(
+			"Pick up {title} from {name}, {addr}".format(
 				title=req.book.title,
+				name=req.borrower.username,
 				addr=req.borrower.userinfo.address),
 		BookRequest.WITH_COURIER_TO_OWNER:
-			"Drop off {title} to {addr}".format(
+			"Drop off {title} to {name}, {addr}".format(
 				title=req.book.title,
+				name=req.book.owner.username,
 				addr=req.book.owner.userinfo.address),
 	}
 

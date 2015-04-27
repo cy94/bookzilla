@@ -57,3 +57,13 @@ def reject(request, id):
 	
 	return HttpResponseRedirect(reverse('users:requests:lent'))	
 
+@login_required
+def return_book(request, id):
+	req = get_object_or_404(BookRequest, pk=id)	
+
+	req.status = req.next_status()
+	req.save()
+	
+	return HttpResponseRedirect(reverse('users:requests:borrowed'))	
+
+
