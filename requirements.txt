@@ -1,2 +1,1 @@
 django-widget-tweaks
-django-notifications-hq

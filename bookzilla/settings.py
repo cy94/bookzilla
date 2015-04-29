@@ -49,7 +49,6 @@ PREREQ_APPS = (
 
 ADDON_APPS = (
     'widget_tweaks',
-    'notifications',
 )
 
 PROJECT_APPS = (
