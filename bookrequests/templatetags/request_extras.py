@@ -127,7 +127,9 @@ def show_request_courier(req):
 @register.filter
 def pending(queryset):
 	return queryset.filter(Q(status=BookRequest.REQUEST_MADE)
-						|  Q(status=BookRequest.WITH_BORROWER))
+						|  Q(status=BookRequest.WITH_BORROWER)
+						|  Q(status=BookRequest.REQUEST_ACCEPTED)
+						|  Q(status=BookRequest.DONE_READING))
 
 
 # returns the completed requests from a queryset 
@@ -143,4 +145,6 @@ def completed(queryset):
 @register.filter
 def intransit(queryset):
 	return queryset.filter(Q(status=BookRequest.WITH_COURIER_TO_BORROWER)
-						|  Q(status=BookRequest.WITH_COURIER_TO_OWNER))		
+						|  Q(status=BookRequest.WITH_COURIER_TO_OWNER))	
+
+
