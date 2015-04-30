@@ -9,7 +9,7 @@
 	<div class="tab-pane active" id="pending">
 		{% for r in requests|pending %}
 			<div class="list-group-item">
-				{% show_request_borrower r %}
+				{% show_request_owner r %}
 			</div>
 		{% empty %}
 			<div class="alert">
@@ -24,7 +24,7 @@
 	<div class="tab-pane" id="all">
 		{% for r in requests %}
 			<div class="list-group-item">
-				{% show_request_borrower r %}
+				{% show_request_owner r %}
 			</div>
 		{% empty %}
 			<div class="alert">
@@ -38,7 +38,7 @@
 	<div class="tab-pane" id="completed">
 		{% for r in requests|completed %}
 			<div class="list-group-item">
-				{% show_request_borrower r %}
+				{% show_request_owner r %}
 			</div>
 		{% empty %}
 			<div class="alert">You have not completed any book requests</div>
@@ -48,7 +48,7 @@
 	<div class="tab-pane" id="transit">
 		{% for r in requests|intransit %}
 			<div class="list-group-item">
-				{% show_request_borrower r %}
+				{% show_request_owner r %}
 			</div>
 		{% empty %}
 			<div class="alert">None of your requested books is with a courier</div>	
