@@ -1,7 +1,11 @@
 {% extends "users_base.html" %}
 
 {# load template tags #}
+{% load staticfiles %}
 {% load book_extras %}
+
+<link rel="stylesheet" type="text/css" href="{% static "css/book-detail.css" %}">
+<script type="text/javascript" src="{% static "js/book-private.js" %}"></script>
 
 {% block content %}
 
@@ -11,8 +15,6 @@
 			<a href="{% url 'users:books:add_book' %}">Add a book</a>
 		</li>
 	</ul>
-
-	
 	
 	<h4>Your books</h4>
 
