@@ -21,7 +21,7 @@ Bookzilla is a book-sharing application written in Python using the Django Frame
 
 ### Deploying
 
-* Get the source from the repository [bitbucket] using git pull
+* Get the source from the repository using git pull
 
 * Enter the source folder and run python manage.py migrate. You should see a list of SQL commands being applied.
 
