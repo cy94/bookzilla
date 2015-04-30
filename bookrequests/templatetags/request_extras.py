@@ -2,6 +2,8 @@
 
 from bookrequests.models import BookRequest
 
+from django.db.models import Q
+
 from django import template
 
 register = template.Library()
@@ -117,3 +119,28 @@ def show_request_courier(req):
 		'message': messages[req.status],
 		'req_id': req.id,
 	}	
+
+# template filters
+
+# returns the pending requests from a queryset 
+# of requests
+@register.filter
+def pending(queryset):
+	return queryset.filter(Q(status=BookRequest.REQUEST_MADE)
+						|  Q(status=BookRequest.WITH_BORROWER))
+
+
+# returns the completed requests from a queryset 
+# of requests
+@register.filter
+def completed(queryset):
+	return queryset.filter(Q(status=BookRequest.RETURNED)
+						|  Q(status=BookRequest.REQUEST_REJECTED))
+
+
+# returns the requests with courier from a queryset 
+# of requests
+@register.filter
+def intransit(queryset):
+	return queryset.filter(Q(status=BookRequest.WITH_COURIER_TO_BORROWER)
+						|  Q(status=BookRequest.WITH_COURIER_TO_OWNER))		

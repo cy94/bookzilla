@@ -3,39 +3,59 @@
 
 {% block content %}
 
-<ul class="nav nav-tabs" id="tabs">
-  <li class="active"><a href="#pending" data-toggle="tab">Pending</a></li>
-  <li role="presentation"><a href="#all" data-toggle="tab">All</a></li>
-  <li role="presentation"><a href="#completed" data-toggle="tab">Completed</a></li>
-  <li role="presentation"><a href="#transit" data-toggle="tab">In Transit</a></li>
-</ul>
+{% include "_request_tabs.html" %}
 
-<div class="tab-content">
-	<div class="tab-pane active" id="pending">pending</div>
-	<div class="tab-pane" id="all">all</div>
-	<div class="tab-pane" id="completed">complete</div>
-	<div class="tab-pane" id="transit">transit</div>
-</div>
-
-
-{% if requests %}
-		
-	<div class="list-group">
+<div class="tab-content list-group">
+	<div class="tab-pane active" id="pending">
+		{% for r in requests|pending %}
+			<div class="list-group-item">
+				{% show_request_borrower r %}
+			</div>
+		{% empty %}
+			<div class="alert">
+				You do not have any pending requests. 
+				Try
+				 <a href="{% url 'users:books:add_book' %}">adding</a>
+				more books?	
+			</div>
+			
+		{% endfor %}
+	</div>
+	<div class="tab-pane" id="all">
 		{% for r in requests %}
 			<div class="list-group-item">
-				{% show_request_owner r %}
+				{% show_request_borrower r %}
+			</div>
+		{% empty %}
+			<div class="alert">
+				You have not lent out any of your books. 
+				Try
+				 <a href="{% url 'users:books:add_book' %}">adding</a>
+				more books?
 			</div>
 		{% endfor %}
-	</div>		
+	</div>
+	<div class="tab-pane" id="completed">
+		{% for r in requests|completed %}
+			<div class="list-group-item">
+				{% show_request_borrower r %}
+			</div>
+		{% empty %}
+			<div class="alert">You have not completed any book requests</div>
+			
+		{% endfor %}
+	</div>
+	<div class="tab-pane" id="transit">
+		{% for r in requests|intransit %}
+			<div class="list-group-item">
+				{% show_request_borrower r %}
+			</div>
+		{% empty %}
+			<div class="alert">None of your requested books is with a courier</div>	
+			
+		{% endfor %}
+	</div>
 
-{% else %}
-
-	You have not lent out any books yet. 
-	Try 
-	<a href="{% url 'users:books:add_book' %}">
-		adding a book?
-	</a>
-	
-{% endif %}
+</div>
 
 {% endblock content %}
