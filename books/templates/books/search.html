@@ -1,10 +1,11 @@
 {% extends "users_base.html" %}
+{% load book_extras %}
 
 {% block content %}
 	{% if results %}
 		{% for book in results %}
 			<div class="col-md-4">
-					{% include "book_public.html" %}
+					{% show_book_public book %}
 			</div>
 		{% endfor %}	
 	{% else %}

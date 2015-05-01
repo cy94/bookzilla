@@ -3,17 +3,18 @@
 
 <div class="book-box panel panel-primary">
 	<div class="panel-heading">
-		<h5 class="book-title panel-title"> {{ book.title }}</h5>	
+		<h5 class="book-title panel-title"> {{ book_title }}</h5>	
 	</div>
 
 	<div class="panel-body">
-		<span class="book-author"><small>Author:</small> {{ book.author }}</span><br>
-		<span class="book-owner "><small>Owner:</small> {{ book.owner }}</span>
+		<span class="book-author"><small>Author:</small> {{ book_author }}</span><br>
+		<span class="book-owner "><small>Owner:</small> {{ book_owner }}</span>
+		<p><small>{{ summary }}</small></p>
 	</div>
 
 	<div class="buttons">
 		{# link to edit this book #}
-		<a href="{% url 'users:books:make_request' book.id %}" class="delete-button">
+		<a href="{% url 'users:books:make_request' book_id %}" class="delete-button">
 			<span class="glyphicon glyphicon-download-alt"></span>
 		</a>
 	</div>

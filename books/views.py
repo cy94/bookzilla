@@ -33,8 +33,13 @@ def add_book(request):
 		user = request.user
 		title = request.POST.get("title")
 		author = request.POST.get("author")
+		summary = request.POST.get('summary')
 
-		new_book = Book(owner = user, title = title, author = author)
+		new_book = Book(owner = user,
+					 title = title, 
+					 author = author,
+					 summary = summary)
+		
 		new_book.save()
 
 		messages.success(request,
@@ -64,6 +69,7 @@ def edit_book(request, book_id):
 		if form.is_valid():
 			book.title = form.cleaned_data['title']
 			book.author = form.cleaned_data['author']
+			book.summary = form.cleaned_data['summary']
 			book.save()
 
 			messages.success(request,
@@ -76,7 +82,8 @@ def edit_book(request, book_id):
 	else:
 		form = EditBookForm({
 				'title': book.title,
-				'author': book.author
+				'author': book.author,
+				'summary': book.summary
 			})
 
 		return render(request, 

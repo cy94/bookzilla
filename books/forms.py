@@ -6,3 +6,8 @@ from django import forms
 class EditBookForm(forms.Form):
 	title = forms.CharField(label='Title')
 	author = forms.CharField(label='Author')
+	summary = forms.CharField(label='Summary',
+				widget=forms.Textarea(attrs=
+					{'placeholder': 'Summary (upto 140 characters)'
+					})
+				)

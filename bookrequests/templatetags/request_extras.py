@@ -125,14 +125,14 @@ def show_request_courier(req):
 				addr=req.book.owner.userinfo.address),
 	}
 
+	# show the confirm button when there is something to be 
+	# done (pick/drop)
 	confirm_button = (req.status not in (
 			BookRequest.WITH_BORROWER,
 			BookRequest.RETURNED,
 		))
 
-
 	return {
-		# add the book title into the message
 		'message': messages[req.status],
 		'req_id': req.id,
 		'confirm_button' : confirm_button

@@ -18,10 +18,18 @@ def show_book_private(book):
 	return {
 		'book_id': book.id,
 		'book_title': book.title,
-		'book_author': book.author
+		'book_author': book.author,
+		'summary' : book.summary,
 	}
 
 # this tag allows the viewer to request the book/
 # etc - as seen by a non-owner
-def show_book_public():
-	pass
+@register.inclusion_tag('books/book_public.html')
+def show_book_public(book):
+	return {
+		'book_id': book.id,
+		'book_title': book.title,
+		'book_author': book.author,
+		'book_owner': book.owner,
+		'summary' : book.summary,
+	}
