@@ -97,28 +97,34 @@ def show_request_courier(req):
 				title=req.book.title,
 				name=req.book.owner.username,
 				addr=req.book.owner.userinfo.address),
-		BookRequest.WITH_BORROWER:
-			"Pick up {title} from {name}, {addr}".format(
-				title=req.book.title,
-				name=req.book.owner.username,
-				addr=req.book.owner.userinfo.address),
-		BookRequest.RETURNED:
-			"Pick up {title} from {name}, {addr}".format(
-				title=req.book.title,
-				name=req.book.owner.username,
-				addr=req.book.owner.userinfo.address),
-		BookRequest.WITH_COURIER_TO_BORROWER:
-			"Drop off {title} to {name}, {addr}".format(
-				title=req.book.title,
-				name=req.borrower.username,
-				addr=req.borrower.userinfo.address),
 		BookRequest.DONE_READING:
 			"Pick up {title} from {name}, {addr}".format(
 				title=req.book.title,
 				name=req.borrower.username,
 				addr=req.borrower.userinfo.address),
+		
+
+
+		BookRequest.WITH_COURIER_TO_BORROWER:
+			"Drop off {title} to {name}, {addr}".format(
+				title=req.book.title,
+				name=req.borrower.username,
+				addr=req.borrower.userinfo.address),
+	
 		BookRequest.WITH_COURIER_TO_OWNER:
 			"Drop off {title} to {name}, {addr}".format(
+				title=req.book.title,
+				name=req.book.owner.username,
+				addr=req.book.owner.userinfo.address),
+
+
+		BookRequest.WITH_BORROWER:
+			"Dropped off {title} to {name}, at {addr}".format(
+				title=req.book.title,
+				name=req.borrower.username,
+				addr=req.borrower.userinfo.address),
+		BookRequest.RETURNED:
+			"Dropped off {title} to {name}, at {addr}".format(
 				title=req.book.title,
 				name=req.book.owner.username,
 				addr=req.book.owner.userinfo.address),
@@ -150,14 +156,6 @@ def completed(queryset):
 	return queryset.filter(Q(status=BookRequest.RETURNED)
 						|  Q(status=BookRequest.REQUEST_REJECTED))
 
-@register.filter
-def courier_pending(queryset):
-	return queryset.filter(Q(status=BookRequest.REQUEST_MADE)
-						|  Q(status=BookRequest.WITH_BORROWER)
-						|  Q(status=BookRequest.REQUEST_ACCEPTED)
-						|  Q(status=BookRequest.DONE_READING))
-
-
 # returns the requests with courier from a queryset 
 # of requests
 @register.filter
@@ -166,3 +164,15 @@ def intransit(queryset):
 						|  Q(status=BookRequest.WITH_COURIER_TO_OWNER))	
 
 
+@register.filter
+def courier_pending(queryset):
+	return queryset.filter(Q(status=BookRequest.REQUEST_ACCEPTED)
+						|  Q(status=BookRequest.DONE_READING)
+						|  Q(status=BookRequest.WITH_COURIER_TO_BORROWER)
+						|  Q(status=BookRequest.WITH_COURIER_TO_OWNER))
+
+
+@register.filter
+def courier_completed(queryset):
+	return queryset.filter(Q(status=BookRequest.RETURNED)
+						|  Q(status=BookRequest.WITH_BORROWER))

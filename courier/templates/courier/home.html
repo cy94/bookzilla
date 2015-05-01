@@ -19,7 +19,7 @@
 		{% endfor %}
 	</div>
 	<div class="tab-pane" id="completed">
-		{% for r in requests %}
+		{% for r in requests|completed %}
 			<div class="list-group-item">
 				{% show_request_courier r %}
 			</div>
