@@ -8,8 +8,11 @@ href="{% static "css/request-courier.css" %}">
 <div>
 	{{ message }}
 
-	<a href="{% url 'courier:advance' req_id %}" 
-	class="done-button">
-		<span class="glyphicon glyphicon-ok"></span>
-	</a>
+	{% if confirm_button %}
+		<a href="{% url 'courier:advance' req_id %}" 
+		class="done-button">
+			<span class="glyphicon glyphicon-ok"></span>
+		</a>	
+	{% endif %}
+	
 </div>

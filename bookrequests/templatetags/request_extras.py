@@ -89,8 +89,6 @@ def show_request_borrower(req):
 # request tracking by the courier
 @register.inclusion_tag('bookrequests/request_courier.html')
 def show_request_courier(req):
-	print "showing:", req
-	
 	messages = {
 		BookRequest.REQUEST_ACCEPTED:
 			"Pick up {title} from {name}, {addr}".format(
@@ -102,8 +100,6 @@ def show_request_courier(req):
 				title=req.book.title,
 				name=req.borrower.username,
 				addr=req.borrower.userinfo.address),
-		
-
 
 		BookRequest.WITH_COURIER_TO_BORROWER:
 			"Drop off {title} to {name}, {addr}".format(
@@ -117,7 +113,6 @@ def show_request_courier(req):
 				name=req.book.owner.username,
 				addr=req.book.owner.userinfo.address),
 
-
 		BookRequest.WITH_BORROWER:
 			"Dropped off {title} to {name}, at {addr}".format(
 				title=req.book.title,
@@ -130,10 +125,17 @@ def show_request_courier(req):
 				addr=req.book.owner.userinfo.address),
 	}
 
+	confirm_button = (req.status not in (
+			BookRequest.WITH_BORROWER,
+			BookRequest.RETURNED,
+		))
+
+
 	return {
 		# add the book title into the message
 		'message': messages[req.status],
 		'req_id': req.id,
+		'confirm_button' : confirm_button
 	}	
 
 
