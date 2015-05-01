@@ -1,13 +1,16 @@
 {% extends "courier_home.html" %}
 {% load request_extras %}
 {% load staticfiles %}
-{% include "courier_tabs.html" %}
+
+<script type="text/javascript" src="{% static "bootstrap.min.js" %}"></script>
 
 {% block content %}
+{% include "courier_tabs.html" %}
+
 
 <div class="tab-content list-group">
 	<div class="tab-pane active" id="pending">
-		{% for r in requests %}
+		{% for r in requests|courier_pending %}
 			<div class="list-group-item">
 				{% show_request_courier r %}
 			</div>
@@ -21,7 +24,7 @@
 				{% show_request_courier r %}
 			</div>
 		{% empty %}
-			Lol to do right now. Come back in some time!
+			No deliveries have been completed yet.
 		{% endfor %}
 	</div>
 </div>

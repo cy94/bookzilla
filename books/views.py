@@ -37,6 +37,10 @@ def add_book(request):
 		new_book = Book(owner = user, title = title, author = author)
 		new_book.save()
 
+		messages.success(request,
+				'Added your book successfully'
+				)
+
 		return HttpResponseRedirect(reverse("users:books:index"))
 	else:
 		return render(request, 'books/add_book.html')

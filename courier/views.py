@@ -40,21 +40,11 @@ def login(request):
 
 @login_required(login_url='/courier/login')
 def home(request):
-	requests = BookRequest.objects.all()
-
-	statuses = (
-			BookRequest.REQUEST_ACCEPTED,
-			BookRequest.WITH_COURIER_TO_BORROWER,
-			BookRequest.DONE_READING,
-			BookRequest.WITH_COURIER_TO_OWNER,
-		)
-
-	request_list = (r for r in requests 
-					if r.status in statuses)
+	requests = BookRequest.objects.all().exclude(status=BookRequest.REQUEST_REJECTED).exclude(status=BookRequest.REQUEST_MADE)
 
 	return render(request, 'courier/home.html',
 				{
-					'requests' : request_list
+					'requests' : requests
 				})
 
 @login_required(login_url='/courier/login')
