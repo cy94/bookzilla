@@ -1,10 +1,11 @@
 {% load staticfiles %}
 
+
 <link rel="stylesheet" type="text/css" 
 href="{% static "css/request-courier.css" %}">
 
 <script type="text/javascript" src="{% static "js/request-courier.js" %}"></script>
-
+{% include "courier_tabs.html" %}
 <div>
 	{{ message }}
 
