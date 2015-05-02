@@ -97,9 +97,20 @@ def edit_book(request, book_id):
 def delete(request, id):
     book = get_object_or_404(Book, pk=id)
 
-    if (book.owner == request.user):
+    # check if someone has a pending request for this book 
+    requests = BookRequest.objects.all().filter(book=book).exclude(
+    				Q(status=BookRequest.REQUEST_REJECTED)
+    			  |	Q(status=BookRequest.RETURNED)
+    			) 
+
+    if requests.exists():
+    	messages.warning(request, 
+    		'There are pending requests for this book, you cannot delete it')
+
+    elif (book.owner == request.user):
     	book.delete()
     	messages.success(request, 'Deleted your book successfully')
+    
     else:
     	messages.warning(request, 'Could not delete this book')
 
@@ -110,10 +121,10 @@ def search(request):
 	if request.method == 'POST':
 		query_string = request.POST.get('query')
 		results = Book.objects.filter(
-				Q(title__icontains=query_string) |
-				Q(author__icontains=query_string)| 
-				Q(summary__icontains=query_string)
-			)
+				Q(title__icontains=query_string)
+			  | Q(author__icontains=query_string)
+			  | Q(summary__icontains=query_string)
+			).exclude(owner=request.user)
 
 		return render(request, 
 						'books/search.html', {
