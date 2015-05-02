@@ -10,20 +10,26 @@
 	</div>
 
 	<div class="panel-body">
-		<span class="book-author">{{ book_author }}</span>
-		<p>
+		<div>
+			<span class="book-author">{{ book_author }}</span>
+			
+		</div>
+		
+		<p class="book-summary">
 			<small>{{ summary }}</small>
 		</p>
+
+		<span class="buttons">
+				{# link to edit this book #}
+				<a href="{% url 'users:books:edit_book' book_id %}" 
+					class="edit-button">
+					<span class="glyphicon glyphicon-edit"></span>
+				</a>
+				<a href="{% url 'users:books:delete' book_id %}" class="delete-button">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+		</span>
 	</div>
 
-	<div class="buttons">
-		{# link to edit this book #}
-		<a href="{% url 'users:books:edit_book' book_id %}" 
-			class="edit-button">
-			<span class="glyphicon glyphicon-edit"></span>
-		</a>
-		<a href="{% url 'users:books:delete' book_id %}" class="delete-button">
-			<span class="glyphicon glyphicon-remove"></span>
-		</a>
-	</div>
+	
 </div>

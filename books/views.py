@@ -70,6 +70,7 @@ def edit_book(request, book_id):
 			book.title = form.cleaned_data['title']
 			book.author = form.cleaned_data['author']
 			book.summary = form.cleaned_data['summary']
+			print "summary:", book.summary
 			book.save()
 
 			messages.success(request,

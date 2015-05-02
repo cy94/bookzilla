@@ -3,13 +3,18 @@
 
 {% block content %}
 	{% if results %}
+		<div class="alert alert-success">
+			Your search returned {{ results|length }} results
+		</div>
 		{% for book in results %}
 			<div class="col-md-4">
 					{% show_book_public book %}
 			</div>
 		{% endfor %}	
 	{% else %}
-		No results found! Try again?
+		<div class="alert alert-info">
+			No books found! Try again?
+		</div>		
 	{% endif %}
 	
 
