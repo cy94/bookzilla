@@ -111,7 +111,8 @@ def search(request):
 		query_string = request.POST.get('query')
 		results = Book.objects.filter(
 				Q(title__icontains=query_string) |
-				Q(author__icontains=query_string)
+				Q(author__icontains=query_string)| 
+				Q(summary__icontains=query_string)
 			)
 
 		return render(request, 
