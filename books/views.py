@@ -113,7 +113,7 @@ def search(request):
 				Q(title__icontains=query_string) |
 				Q(author__icontains=query_string)| 
 				Q(summary__icontains=query_string)
-			)
+			).exclude(owner=request.user)
 
 		return render(request, 
 						'books/search.html', {

@@ -15,7 +15,8 @@
 }
 
 .book-title{
-	height: 2em;
+       height: 2em;
+       font-size: 1.3em;
 }
 
 .buttons{
